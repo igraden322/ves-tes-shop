@@ -13,7 +13,7 @@ const CategoryBar = observer(() => {
                     key={category.id}
                     className="p-3"
                     onClick={() => product.setSelectedCategory(category)}
-                    border={category.id === product.selectedCategory.id ? 'dangel' : 'light'}
+                    border={category.id === product.selectedCategory.id ? 'danger' : 'light'}
                 >
                     {category.name}
                 </Card>
