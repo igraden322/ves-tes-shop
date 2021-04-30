@@ -2,20 +2,14 @@ import { makeAutoObservable } from 'mobx'
 
 export default class ProductStore {
     constructor() {
-        this._categories = [
-            { id: 1, name: 'Свитшоты' },
-            { id: 2, name: 'Толстовки' }
-        ]
-        this._sizes = [
-            { id: 1, name: 'M' },
-            { id: 2, name: '48' }
-        ]
-        this._products = [
-            { id: 1, name: "Свитшот", price: 1750, img: "../../../server/static/9c35ffcc-3f30-416e-b2f3-0c4dbad789ea.jpg" },
-            { id: 2, name: "Свитшот", price: 3250, img: "../../../server/static/9c35ffcc-3f30-416e-b2f3-0c4dbad789ea.jpg" }
-        ]
+        this._categories = []
+        this._sizes = []
+        this._products = []
         this._selectedType = []
         this._selectedCategory = []
+        this._totalCount = 0
+        this._limit = 3
+        this._page = 1
         makeAutoObservable(this)
     }
 
@@ -32,11 +26,21 @@ export default class ProductStore {
     }
 
     setSelectedType(type) {
+        this.setPage(1)
         this._selectedType = type
     }
 
     setSelectedCategory(category) {
+        this.setPage(1)
         this._selectedCategory = category
+    }
+
+    setPage(page) {
+        this._page = page
+    }
+
+    setTotalCount(count) {
+        this._totalCount = count
     }
 
     get categories() {
@@ -57,6 +61,18 @@ export default class ProductStore {
 
     get selectedCategory() {
         return this._selectedCategory
+    }
+
+    get totalCount() {
+        return this._totalCount
+    }
+
+    get page() {
+        return this._page
+    }
+
+    get limit() {
+        return this._limit
     }
 
 }

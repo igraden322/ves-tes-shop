@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Container } from 'react-bootstrap'
+import { Context } from '../index'
 import CreateCategory from '../components/modals/CreateCategory'
 import CreateProduct from '../components/modals/CreateProduct'
 
 const Admin = () => {
+    const { user } = useContext(Context);
     const [categoryVisible, setCategoryVisible] = useState(false)
     const [productVisible, setProductVisible] = useState(false)
     return (
