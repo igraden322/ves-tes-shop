@@ -33,10 +33,10 @@ const Category = sequelize.define("category", {
   name: { type: DataTypes.STRING, allowNull: false },
 });
 
-const ProductInfo = sequelize.define("product_info", {
+const ProductInfo = sequelize.define("product_infos", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   title: { type: DataTypes.STRING, allowNull: false },
-  decription: { type: DataTypes.STRING, allowNull: false },
+  description: { type: DataTypes.STRING, allowNull: false },
 });
 
 const CategorySize = sequelize.define("category_size", {

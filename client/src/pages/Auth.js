@@ -22,10 +22,11 @@ const Auth = observer(() => {
             } else {
                 data = await registration(email, password)
             }
+            localStorage.setItem('email', data.email)
             user.setUser(user)
             user.setIsAuth(true)
             history.push(SHOP_ROUTE)
-        } catch(e) {
+        } catch (e) {
             alert(e.response.data.message)
         }
 

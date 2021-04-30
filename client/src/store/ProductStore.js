@@ -8,7 +8,7 @@ export default class ProductStore {
         this._selectedType = []
         this._selectedCategory = []
         this._totalCount = 0
-        this._limit = 3
+        this._limit = 2
         this._page = 1
         makeAutoObservable(this)
     }
@@ -42,7 +42,7 @@ export default class ProductStore {
     setTotalCount(count) {
         this._totalCount = count
     }
-
+    
     get categories() {
         return this._categories
     }

@@ -15,6 +15,8 @@ const NavBar = observer(() => {
     const logOut = () => {
         user.setUser({})
         user.setIsAuth(false)
+        localStorage.removeItem('email');
+        history.push(SHOP_ROUTE)
     }
     return (
         <div>
@@ -25,7 +27,7 @@ const NavBar = observer(() => {
                     </NavLink>
                     {user.isAuth ?
                         <Nav className="ml-auto" style={{ color: "whitesmoke" }}>
-                            <Button variant={"outline-light"} onClick={() => logOut()}>Выйти</Button>
+                            <Button variant={"outline-light"} onClick={() => logOut()}>Выйти ({`${localStorage.getItem('email')}`})</Button>
                             <Button variant={"outline-light"} onClick={() => history.push(ADMIN_ROUTE)} className="ml-2">Панель администратора</Button>
                         </Nav>
                         :
