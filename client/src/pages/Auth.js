@@ -1,12 +1,47 @@
-import React from 'react'
-import { Card, Container, Form, Button, Row} from 'react-bootstrap'
-import { useLocation, NavLink } from 'react-router-dom'
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/consts'
+import React, { useContext, useState } from 'react'
+import { Card, Container, Form, Button, Row } from 'react-bootstrap'
+import { useLocation, NavLink, useHistory } from 'react-router-dom'
+import { observer } from 'mobx-react-lite';
+import { login, registration } from '../http/userApi'
+import { getRecords } from '../http/basketProductApi'
+import { addBasket, getBasket } from '../http/basketApi'
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts'
+import { Context } from '../index';
 
-const Auth = () => {
+const Auth = observer(() => {
+    const { user, basket } = useContext(Context);
     const location = useLocation()
+    const history = useHistory()
     const isLogin = location.pathname === LOGIN_ROUTE
-    console.log(location)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [userId, setUserId] = useState('');
+
+
+    const click = async () => {
+        try {
+            let data;
+            if (isLogin) {
+                data = await login(email, password)
+            } else {
+                data = await registration(email, password)
+            }
+            localStorage.setItem('email', data.email)
+            data = await getBasket(userId)
+            localStorage.setItem('basketId', data.id)
+            let func = getRecords(localStorage.getItem('basketId')).then((records) => {
+                basket.setList(records);
+            });
+            basket.setUserId(userId)
+            user.setUser(user)
+            basket.setBasket(basket)
+            user.setIsAuth(true)
+            history.push(SHOP_ROUTE)
+        } catch (e) {
+            alert(e.response.data.message)
+        }
+
+    }
 
     return (
         <Container
@@ -19,11 +54,16 @@ const Auth = () => {
                     <Form.Control
                         className="mt-3"
                         placeholder="Введите email.."
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                     />
 
                     <Form.Control
                         className="mt-3"
                         placeholder="Введите пароль.."
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        type="password"
                     />
                     <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
                         {isLogin ?
@@ -35,7 +75,7 @@ const Auth = () => {
                                 Есть аккаунт? <NavLink className="p-0" style={{ display: 'inline' }} to={LOGIN_ROUTE}>Авторизуйтесь!</NavLink>
                             </div>
                         }
-                        <Button variant={"outline-success"}>
+                        <Button variant={"outline-success"} onClick={click}>
                             {isLogin ? 'Войти' : 'Зарегистрироваться'}
                         </Button>
                     </Row>
@@ -45,6 +85,6 @@ const Auth = () => {
 
         </Container>
     )
-}
+})
 
 export default Auth

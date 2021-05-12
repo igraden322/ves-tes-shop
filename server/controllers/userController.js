@@ -24,7 +24,7 @@ class UserController {
     const user = await User.create({ email, role, password: hashPass });
     const basket = await Basket.create({ userId: user.id });
     const token = genereateJwt(user.id, user.email, user.role)
-    return res.json({token})
+    return res.json({ token })
   }
 
   async login(req, res, next) {
@@ -38,6 +38,7 @@ class UserController {
     if (!comparePassword) {
       return next(ApiError.internal('Указан неверный пароль'))
     }
+
 
     const token = genereateJwt(user.id, user.email, user.role)
     return res.json({ token })

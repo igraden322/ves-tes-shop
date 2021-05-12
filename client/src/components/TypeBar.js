@@ -7,7 +7,7 @@ const TypeBar = observer(() => {
     const { product } = useContext(Context)
     return (
         <ListGroup>
-            {product.sizes.map(type => 
+            {product.types.map(type => 
                 <ListGroup.Item key={type.id}
                 style={{cursor: 'pointer'}}
                 active={type.id === product.selectedType.id}

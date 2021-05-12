@@ -6,7 +6,7 @@ const ApiError = require("../error/ApiError");
 class ProductController {
   async create(req, res, next) {
     try {
-      const { name, price, sizeId, categoryId, info } = req.body;
+      let { name, price, typeId, categoryId, info } = req.body;
       const { img } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img.mv(path.resolve(__dirname, "..", "static", fileName));
@@ -15,13 +15,13 @@ class ProductController {
         name,
         price,
         categoryId,
-        sizeId,
+        typeId,
         img: fileName,
       });
 
       if (info) {
         info = JSON.parse(info)
-        info.forEach(i => 
+        info.forEach(i =>
           ProductInfo.create({
             title: i.title,
             description: i.description,
@@ -29,7 +29,7 @@ class ProductController {
           }))
       }
 
-      
+
 
       return res.json(product);
     } catch (e) {
@@ -38,34 +38,34 @@ class ProductController {
   }
 
   async getAll(req, res) {
-    let { categoryId, sizeId, limit, page } = req.query
+    let { categoryId, typeId, limit, page } = req.query
     page = page || 1
     limit = limit || 9
     let offset = page * limit - limit
     let products;
-    if (!categoryId && !sizeId) {
-      products = await Product.findAndCountAll({limit, offset});
+    if (!categoryId && !typeId) {
+      products = await Product.findAndCountAll({ limit, offset });
     }
 
-    if (categoryId && !sizeId) {
+    if (categoryId && !typeId) {
       products = await Product.findAndCountAll({
         where: { categoryId },
         limit,
         offset,
       });
-    } 
+    }
 
-    if (!categoryId && sizeId) {
+    if (!categoryId && typeId) {
       products = await Product.findAndCountAll({
-        where: { sizeId },
+        where: { typeId },
         limit,
         offset,
       });
     }
 
-    if (categoryId && sizeId) {
+    if (categoryId && typeId) {
       products = await Product.findAndCountAll({
-        where: { sizeId, categoryId },
+        where: { typeId, categoryId },
         limit,
         offset,
       });
@@ -75,10 +75,18 @@ class ProductController {
   }
 
   async getOne(req, res) {
-    const {id} = req.params
+    const { id } = req.params
     const product = await Product.findOne({
-      where: {id},
-      include: [{model: ProductInfo, as: 'info'}]
+      where: { id },
+      include: [{ model: ProductInfo, as: 'info' }]
+    })
+    return res.json(product)
+  }
+
+  async getRecord(req, res) {
+    const { id } = req.query
+    const product = await Product.findOne({
+      where: { id }
     })
     return res.json(product)
   }

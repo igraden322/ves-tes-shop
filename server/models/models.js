@@ -20,7 +20,12 @@ const Product = sequelize.define("product", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
   price: { type: DataTypes.FLOAT, allowNull: false },
-  img: { type: DataTypes.STRING, defaultValue: "USER", allowNull: false },
+  img: { type: DataTypes.STRING, defaultValue: "", allowNull: false },
+});
+
+const Type = sequelize.define("type", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, allowNull: false },
 });
 
 const Size = sequelize.define("size", {
@@ -33,13 +38,13 @@ const Category = sequelize.define("category", {
   name: { type: DataTypes.STRING, allowNull: false },
 });
 
-const ProductInfo = sequelize.define("product_info", {
+const ProductInfo = sequelize.define("product_infos", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   title: { type: DataTypes.STRING, allowNull: false },
-  decription: { type: DataTypes.STRING, allowNull: false },
+  description: { type: DataTypes.STRING, allowNull: false },
 });
 
-const CategorySize = sequelize.define("category_size", {
+const ProductSize = sequelize.define("product_size", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
@@ -55,18 +60,18 @@ ProductInfo.belongsTo(Product);
 Category.hasMany(Product);
 Product.belongsTo(Category);
 
-Size.hasMany(Product);
-Product.belongsTo(Size);
+Type.hasMany(Product);
+Product.belongsTo(Type);
 
 Product.hasMany(ProductInfo, {as: 'info'});
 ProductInfo.belongsTo(Product);
 
-ProductInfo.hasMany(BasketProduct);
+Product.hasMany(BasketProduct);
 BasketProduct.belongsTo(Product);
 
-Size.belongsToMany(Category, { through: CategorySize });
-Category.belongsToMany(Size, { through: CategorySize });
+Size.belongsToMany(Product, { through: ProductSize });
+Product.belongsToMany(Size, { through: ProductSize });
 
 module.exports = {
-    User, Basket, BasketProduct, ProductInfo, Product, CategorySize, Category, Size
+    User, Basket, BasketProduct, ProductInfo, Product, ProductSize, Category, Size, Type
 }

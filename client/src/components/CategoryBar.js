@@ -15,6 +15,7 @@ const CategoryBar = observer(() => {
                     onClick={() => product.setSelectedCategory(category)}
                     border={category.id === product.selectedCategory.id ? 'danger' : 'light'}
                 >
+                    {localStorage.setItem(category.id,category.name)}
                     {category.name}
                 </Card>
             )}
