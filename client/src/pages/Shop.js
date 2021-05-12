@@ -13,7 +13,11 @@ const Shop = observer(() => {
 
     useEffect(() => {
         fetchCategories().then(data => product.setCategories(data))
+<<<<<<< HEAD
         fetchTypes().then(data => product.setTypes(data))
+=======
+        fetchTypes().then(data => product.setSizes(data))
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
         fetchProducts(null, null, 1, 3).then(data => {
             product.setProducts(data.rows)
             product.setTotalCount(data.count)

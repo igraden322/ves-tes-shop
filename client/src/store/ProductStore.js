@@ -3,7 +3,11 @@ import { makeAutoObservable } from 'mobx'
 export default class ProductStore {
     constructor() {
         this._categories = []
+<<<<<<< HEAD
         this._types = []
+=======
+        this._sizes = []
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
         this._products = []
         this._selectedType = []
         this._selectedCategory = []

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
@@ -30,6 +31,18 @@ const ProductPage = () => {
     }, [])
 
 
+=======
+import React, { useEffect, useState } from 'react'
+import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
+import { fetchOneProduct } from '../http/productApi'
+const ProductPage = () => {
+    const [product, setProduct] = useState({ info: [] })
+    const { id } = useParams()
+    useEffect(() => {
+        fetchOneProduct(id).then(data => setProduct(data))
+    }, [])
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
     return (
         <Container className="mt-3">
             <Row>
@@ -43,7 +56,11 @@ const ProductPage = () => {
                         <h4>
                             {product.price} ₽
                         </h4>
+<<<<<<< HEAD
                         <Button variant={"outline-dark"} onClick={click}>
+=======
+                        <Button variant={"outline-dark"}>
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
                             Добавить в корзину
                         </Button>
                         <h3>О товаре</h3>

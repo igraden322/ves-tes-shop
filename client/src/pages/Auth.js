@@ -3,20 +3,30 @@ import { Card, Container, Form, Button, Row } from 'react-bootstrap'
 import { useLocation, NavLink, useHistory } from 'react-router-dom'
 import { observer } from 'mobx-react-lite';
 import { login, registration } from '../http/userApi'
+<<<<<<< HEAD
 import { getRecords } from '../http/basketProductApi'
 import { addBasket, getBasket } from '../http/basketApi'
+=======
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts'
 import { Context } from '../index';
 
 const Auth = observer(() => {
+<<<<<<< HEAD
     const { user, basket } = useContext(Context);
+=======
+    const { user } = useContext(Context);
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
     const location = useLocation()
     const history = useHistory()
     const isLogin = location.pathname === LOGIN_ROUTE
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+<<<<<<< HEAD
     const [userId, setUserId] = useState('');
 
+=======
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
 
     const click = async () => {
         try {
@@ -27,6 +37,7 @@ const Auth = observer(() => {
                 data = await registration(email, password)
             }
             localStorage.setItem('email', data.email)
+<<<<<<< HEAD
             data = await getBasket(userId)
             localStorage.setItem('basketId', data.id)
             let func = getRecords(localStorage.getItem('basketId')).then((records) => {
@@ -35,6 +46,9 @@ const Auth = observer(() => {
             basket.setUserId(userId)
             user.setUser(user)
             basket.setBasket(basket)
+=======
+            user.setUser(user)
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
             user.setIsAuth(true)
             history.push(SHOP_ROUTE)
         } catch (e) {

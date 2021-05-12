@@ -10,12 +10,20 @@ const CreateProduct = observer(({ show, onHide }) => {
     const [price, setPrice] = useState(0)
     const [file, setFile] = useState(null)
     const [category, setCategory] = useState(null)
+<<<<<<< HEAD
     const [type, setType] = useState(null)
+=======
+    const [size, setSize] = useState(null)
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
     const [info, setInfo] = useState([])
 
     useEffect(() => {
         fetchCategories().then(data => product.setCategories(data))
+<<<<<<< HEAD
         fetchTypes().then(data => product.setTypes(data))
+=======
+        fetchTypes().then(data => product.setSizes(data))
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
     }, [])
 
     const addInfo = () => {
@@ -40,7 +48,11 @@ const CreateProduct = observer(({ show, onHide }) => {
         formData.append('price', `${ price }`)
         formData.append('img', file)
         formData.append('categoryId', product.selectedCategory.id)
+<<<<<<< HEAD
         formData.append('typeId', product.selectedType.id)
+=======
+        formData.append('sizeId', product.selectedType.id)
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
         formData.append('info', JSON.stringify(info))
         createProducts(formData).then(data => onHide())
     }
@@ -72,9 +84,15 @@ const CreateProduct = observer(({ show, onHide }) => {
                     <Dropdown className="mt-2 mb-2">
                         <Dropdown.Toggle>{product.selectedType.name || 'Выберите тип'}</Dropdown.Toggle>
                         <Dropdown.Menu>
+<<<<<<< HEAD
                             {product.types.map(type =>
                                 <Dropdown.Item key={type.id} onClick={() => product.setSelectedType(type)}>
                                     {type.name}
+=======
+                            {product.sizes.map(size =>
+                                <Dropdown.Item key={size.id} onClick={() => product.setSelectedType(size)}>
+                                    {size.name}
+>>>>>>> 1f8403f9cb12e2f81a5b2e8952fe5a40a6efd7a4
                                 </Dropdown.Item>
                             )}
                         </Dropdown.Menu>
